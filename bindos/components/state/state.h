@@ -15,6 +15,7 @@ namespace os {
         esp_err_t load();
         esp_err_t save();
 
+        bool sleep = false;
         uint8_t brightness;
 
     private:

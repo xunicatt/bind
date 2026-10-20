@@ -15,6 +15,9 @@ namespace os {
         void poweroff();
         void reboot();
 
+        esp_err_t suspend();
+        esp_err_t resume();
+
         bsp::RamFs ramfs;
         bsp::Storage storage;
         bsp::Buttons buttons;

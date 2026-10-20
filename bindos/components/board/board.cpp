@@ -4,14 +4,36 @@
 
 #include <board.h>
 #include <esp_check.h>
+#include <esp_lcd_panel_ops.h>
+#include <esp_pm.h>
+#include <esp_sleep.h>
 #include <esp_system.h>
 #include <init.h>
+
+extern "C" {
+    #include <axp2101.h>
+}
 
 namespace os {
     static const char *TAG = "bindos::board";
 
+    constexpr auto CPU_MIN_FREQ = 40;
+    constexpr auto CPU_MAX_FREQ = 240;
+
     esp_err_t Board::init(State &state) {
         esp_err_t ret = ESP_OK;
+
+        {
+            esp_pm_config_t config = {};
+            config.min_freq_mhz = CPU_MIN_FREQ,
+            config.max_freq_mhz = CPU_MAX_FREQ,
+            ret = esp_pm_configure(&config);
+
+            ESP_RETURN_ON_ERROR(ret, TAG, "failed to configure: power management");
+        }
+
+        ret = esp_sleep_disable_wakeup_source(ESP_SLEEP_WAKEUP_ALL);
+        ESP_RETURN_ON_ERROR(ret, TAG, "failed to disable all sleep wakeup source");
 
         ret = ramfs.mount();
         ESP_RETURN_ON_ERROR(ret, TAG, "failed to mount: ramfs");
@@ -142,5 +164,52 @@ namespace os {
 
         deinit();
         esp_restart();
+    }
+
+    esp_err_t Board::suspend() {
+        esp_err_t ret = ESP_OK;
+
+        ret = lvgl.suspend();
+        ESP_RETURN_ON_ERROR(ret, TAG, "failed to suspend: lvgl");
+
+        ret = touch.sleep(true);
+        ESP_GOTO_ON_ERROR(ret, resume_lvgl, TAG, "failed to suspend: touch");
+
+        ret = esp_lcd_panel_disp_sleep(display.handle(), true);
+        ESP_GOTO_ON_ERROR(ret, resume_touch, TAG, "failed to suspend: display");
+
+        ret = axp2101_set_ldo_enabled(AXP2101_LDO_ALDO2, false);
+        ESP_GOTO_ON_ERROR(ret, resume_display, TAG, "failed to turn off display ldo");
+
+        return ESP_OK;
+
+    resume_display:
+        esp_lcd_panel_disp_sleep(display.handle(), false);
+
+    resume_touch:
+        touch.sleep(false);
+
+    resume_lvgl:
+        lvgl.resume();
+
+        return ret;
+    }
+
+    esp_err_t Board::resume() {
+        esp_err_t ret = ESP_OK;
+
+        ret = axp2101_set_ldo_enabled(AXP2101_LDO_ALDO2, true);
+        ESP_RETURN_ON_ERROR(ret, TAG, "failed to turn on display ldo");
+
+        ret = esp_lcd_panel_disp_sleep(display.handle(), false);
+        ESP_RETURN_ON_ERROR(ret, TAG, "failed to resume: display");
+
+        ret = touch.sleep(false);
+        ESP_RETURN_ON_ERROR(ret, TAG, "failed to resume: touch");
+
+        ret = lvgl.resume();
+        ESP_RETURN_ON_ERROR(ret, TAG, "failed to resume: lvgl");
+
+        return ESP_OK;
     }
 }

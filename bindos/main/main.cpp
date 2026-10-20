@@ -14,6 +14,9 @@ extern "C" int app_main(void) {
     ret = os::init();
     ESP_RETURN_ON_ERROR(ret, TAG, "os::init failed!");
 
+    ret = os::run();
+    ESP_RETURN_ON_ERROR(ret, TAG, "os::run failed!");
+
     return ESP_OK;
 }
 

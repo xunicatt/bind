@@ -9,6 +9,7 @@
 
 namespace os {
     esp_err_t init();
+    esp_err_t run();
     void logo();
     void poweroff();
     void reboot();
