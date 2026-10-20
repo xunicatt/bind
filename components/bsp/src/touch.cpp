@@ -166,6 +166,20 @@ namespace bsp {
         return handle_;
     }
 
+    esp_err_t TouchInput::reset() {
+        esp_err_t ret = ESP_OK;
+
+        ret = gpio_set_level(RST, 0);
+        ESP_RETURN_ON_ERROR(ret, TAG, "failed to set level");
+        vTaskDelay(pdMS_TO_TICKS(10));
+
+        ret = gpio_set_level(RST, 1);
+        ESP_RETURN_ON_ERROR(ret, TAG, "failed to set level");
+        vTaskDelay(pdMS_TO_TICKS(10));
+
+        return ESP_OK;
+    }
+
     namespace lvgl {
         void touch_input_cb(lv_indev_t *indev, lv_indev_data_t *data) {
             if (s_handle == nullptr || s_sem == nullptr) {
