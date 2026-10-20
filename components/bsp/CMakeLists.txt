@@ -11,4 +11,5 @@ idf_component_register(
     REQUIRES esp_lcd_co5300 esp_lcd_touch_ft5x06
              lvgl esp_timer button esp_codec_dev
              qmi8658 pcf85063a fatfs littlefs ramfs
+             pmic_axp2101
 )
