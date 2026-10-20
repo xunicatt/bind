@@ -1,0 +1,8 @@
+# BindOS Partition Table
+# Name,   Type, SubType,  Offset,    Size, Flags
+nvs,      data, nvs,      0x0009000, 32K,
+otadata,  data, ota,      0x0011000, 8K,
+phy_init, data, phy,      0x0013000, 4K,
+rebind,   app,  factory,  0x0020000, 4M,
+bindos,   app,  ota_0,    0x0420000, 16M,
+storage,  data, littlefs, 0x1420000, 10M,

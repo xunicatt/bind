@@ -1,0 +1,194 @@
+dependencies:
+  espressif/button:
+    component_hash: 7cb7e2944b5828f409af0c92f7fcc0e2d405de09c3325b7ee4a0eba5fb28dfdc
+    dependencies:
+    - name: espressif/cmake_utilities
+      registry_url: https://components.espressif.com
+      require: private
+      version: '*'
+    - name: idf
+      require: private
+      version: '>=4.0'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 4.2.2
+  espressif/cmake_utilities:
+    component_hash: 351350613ceafba240b761b4ea991e0f231ac7a9f59a9ee901f751bddc0bb18f
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=4.1'
+    source:
+      registry_url: https://components.espressif.com
+      type: service
+    version: 0.5.3
+  espressif/elf_loader:
+    component_hash: 2c469a694d8b6081a8d3f3747970e05b3e9c39d4ce81a1b93747455ed0bedf0a
+    dependencies:
+    - name: idf
+      version: '>=4.4.3'
+    - name: espressif/cmake_utilities
+      version: 0.*
+    source:
+      git: https://github.com/xunicatt/esp-iot-solution.git
+      path: components/elf_loader
+      type: git
+    targets:
+    - esp32
+    - esp32s2
+    - esp32s3
+    - esp32s31
+    - esp32c6
+    - esp32c61
+    - esp32p4
+    version: 018dc70bff5ef0f5d07f82aad0cce126d5d2e303
+  espressif/esp_codec_dev:
+    component_hash: 4779f31a3ba3f9b38aee1afe6ccb9ba8f6108dc3a6e77d39d7d714e9a215371b
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=4.0'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 1.6.2
+  espressif/esp_lcd_co5300:
+    component_hash: 1a5cbaa0069c3c72c238e5a1eb32ec9dd390ec1c7c46b24bf44b9037f2fe6c56
+    dependencies:
+    - name: espressif/cmake_utilities
+      registry_url: https://components.espressif.com
+      require: private
+      version: 0.*
+    - name: idf
+      require: private
+      version: '>=5.4'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 2.2.0
+  espressif/esp_lcd_touch:
+    component_hash: 3f85a7d95af876f1a6ecca8eb90a81614890d0f03a038390804e5a77e2caf862
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=4.4.2'
+    source:
+      registry_url: https://components.espressif.com
+      type: service
+    version: 1.2.1
+  espressif/esp_lcd_touch_ft5x06:
+    component_hash: d49f3dec3ae89617c31d96ac6f31bbc3212a0f049354eabd55c9457e454c56ae
+    dependencies:
+    - name: espressif/esp_lcd_touch
+      registry_url: https://components.espressif.com
+      require: public
+      version: ^1.2.0
+    - name: idf
+      require: private
+      version: '>=5.2'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 1.1.1
+  espressif/ramfs:
+    component_hash: 0d78f5f369d900ea3012886898589735861b69b316b8a7ac2c5a0f14da5cde6d
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=5.2'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 0.1.0
+  idf:
+    source:
+      type: idf
+    version: 5.5.5
+  joltwallet/littlefs:
+    component_hash: f65ef32c718e87638ee966b9b02f21639c45bed59c8d0126fd03e9c1f3275a92
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=5.0'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 1.23.0
+  kevincoooool/pmic_axp2101:
+    component_hash: ad58c177da7cdbd9d1a4f0cf692020e7daa2e52ee3e307ba787412852a203839
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=5.0'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 1.1.2
+  lvgl/lvgl:
+    component_hash: 7d82410747bbfb319531449749e940f440f8414f041f9eaba13f0d1dd7f58cdd
+    dependencies:
+    - name: espressif/freetype
+      registry_url: https://components.espressif.com
+      require: private
+      rules:
+      - if: idf_version >=5.5 && $CONFIG{LV_USE_FREETYPE} == True
+      version: ^2.14.3
+    - name: espressif/libjpeg-turbo
+      registry_url: https://components.espressif.com
+      require: private
+      rules:
+      - if: idf_version >=5.5 && $CONFIG{LV_USE_LIBJPEG_TURBO} == True
+      version: ^3.1.1
+    - name: espressif/libpng
+      registry_url: https://components.espressif.com
+      require: private
+      rules:
+      - if: idf_version >=5.5 && $CONFIG{LV_USE_LIBPNG} == True
+      version: ^1.6.58
+    - name: espressif/lz4
+      registry_url: https://components.espressif.com
+      require: private
+      rules:
+      - if: idf_version >=5.5 && $CONFIG{LV_USE_LZ4} == True && $CONFIG{LV_USE_LZ4_INTERNAL} == False
+      version: ^1.10.0
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 9.6.0~1
+  waveshare/pcf85063a:
+    component_hash: 61a541e6d9db63e3a96cacb906fc8d455e2341d700a63021fcfbacd7a3a7e081
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=5.3.2'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 2.1.0
+  waveshare/qmi8658:
+    component_hash: b8cfbcc4147a4fbb8a5cc95c683c587dbdbe5a633f0cf5995dad02ac79cc665a
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=5.3.2'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 2.0.2
+direct_dependencies:
+- espressif/button
+- espressif/elf_loader
+- espressif/esp_codec_dev
+- espressif/esp_lcd_co5300
+- espressif/esp_lcd_touch_ft5x06
+- espressif/ramfs
+- idf
+- joltwallet/littlefs
+- kevincoooool/pmic_axp2101
+- lvgl/lvgl
+- waveshare/pcf85063a
+- waveshare/qmi8658
+manifest_hash: abdab2d2af1d5ca2abf7cb48190f84df7f697171049a68551558b7cf1effa8db
+target: esp32s3
+version: 2.0.0

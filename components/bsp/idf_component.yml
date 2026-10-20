@@ -1,0 +1,30 @@
+# SPDX-License-Identifier: GPL-2.0
+# Author: xunicatt
+# Copyright (c) 2026 xunicatt <contact.aniket.biswas@gmail.com>
+
+version: "1.0.0"
+description: "Board Support Package for Waveshare ESP32-S3 Touch AMOLED 2.06"
+url: https://github.com/xunicatt/ruby/tree/main/components/bsp
+repository: https://github.com/xunicatt/ruby/tree/main/components/bsp
+maintainers:
+  - xunicatt contact.aniket.biswas@gmail.com
+license: "GPL-2.0-only"
+dependencies:
+  idf:
+    version: '>=4.1.0'
+  kevincoooool/pmic_axp2101: ^1.1.2
+  espressif/esp_lcd_co5300: ^2.2.0
+  espressif/esp_lcd_touch_ft5x06: ^1.1.1
+  lvgl/lvgl: ^9.6.0~1
+  waveshare/qmi8658: ^2.0.1
+  waveshare/pcf85063a: ^2.1.0
+  espressif/esp_codec_dev: ^1.6.2
+  joltwallet/littlefs: ^1.22.3
+  espressif/button: ^4.2.1
+  espressif/ramfs: ^0.1.0
+
+tags:
+  - bsp
+
+targets:
+  - esp32s3

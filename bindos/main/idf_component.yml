@@ -1,0 +1,12 @@
+# SPDX-License-Identifier: GPL-2.0
+# Author: xunicatt
+# Copyright (c) 2026 xunicatt <contact.aniket.biswas@gmail.com>
+
+dependencies:
+  idf:
+    version: '=5.5.5'
+  joltwallet/littlefs: ^1.22.3
+  espressif/elf_loader:
+    git: https://github.com/xunicatt/esp-iot-solution.git
+    path: components/elf_loader
+    version: fix/elf-loader-dlsym-remap
