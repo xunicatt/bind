@@ -8,13 +8,23 @@
 #include <init.h>
 #include <state.h>
 
+#define OS_VERSION "v0.1"
+
 namespace os {
     static const char *TAG = "bindos::init";
     static Board board;
     static State state;
 
+    static void osinfo() {
+        ESP_LOGI(TAG, "*****************************");
+        ESP_LOGI(TAG, "*  Starting BindOS(%s)..  *", OS_VERSION);
+        ESP_LOGI(TAG, "*****************************");
+    }
+
     esp_err_t init() {
         esp_err_t ret = ESP_OK;
+
+        osinfo();
 
         ret = state.init();
         ESP_RETURN_ON_ERROR(ret, TAG, "failed to initialize: state");
