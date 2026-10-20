@@ -5,11 +5,12 @@
 #include <board.h>
 #include <esp_check.h>
 #include <esp_system.h>
+#include <init.h>
 
 namespace os {
     static const char *TAG = "bindos::board";
 
-    esp_err_t Board::init() {
+    esp_err_t Board::init(State &state) {
         esp_err_t ret = ESP_OK;
 
         ret = ramfs.mount();
@@ -60,6 +61,9 @@ namespace os {
         ret = lvgl.init();
         ESP_GOTO_ON_ERROR(ret, err, TAG, "failed to initialize: lvgl");
         ESP_LOGI(TAG, "initialized: lvgl");
+
+        display.set_brightness(state.brightness);
+        os::logo();
 
         ret = rtc.init(i2c);
         ESP_GOTO_ON_ERROR(ret, err, TAG, "failed to initialize: rtc");

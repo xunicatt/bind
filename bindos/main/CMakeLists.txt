@@ -7,4 +7,5 @@ file(GLOB_RECURSE SRCS *.cpp)
 idf_component_register(
     INCLUDE_DIRS "include"
     SRCS ${SRCS}
+    REQUIRES init
 )

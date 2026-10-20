@@ -6,10 +6,11 @@
 #define BOARD_H
 
 #include <bsp/bsp.h>
+#include <state.h>
 
 namespace os {
     struct Board {
-        esp_err_t init();
+        esp_err_t init(State &state);
         void deinit();
         void poweroff();
         void reboot();

@@ -5,5 +5,5 @@
 idf_component_register(
     INCLUDE_DIRS "."
     SRCS "board.cpp"
-    REQUIRES bsp
+    REQUIRES init bsp state
 )
