@@ -88,7 +88,7 @@ namespace bsp {
                 .dc_gpio_num = GPIO_NUM_NC,
                 .spi_mode = 0,
                 .pclk_hz = SPI_MASTER_FREQ,
-                .trans_queue_depth = 10,
+                .trans_queue_depth = 6,
                 .on_color_trans_done = lvgl::flush_ready_cb,
                 .user_ctx = nullptr,
                 .lcd_cmd_bits = 32,
